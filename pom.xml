@@ -35,7 +35,7 @@
 
   <groupId>net.tirasa.connid.bundles</groupId>
   <artifactId>net.tirasa.connid.bundles.ldap</artifactId>
-  <version>1.5.8</version>
+  <version>1.5.8.1</version>
 
   <name>ConnId Bundles: LDAP</name>
 

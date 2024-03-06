@@ -48,8 +48,8 @@ import org.identityconnectors.framework.common.exceptions.ConnectorException;
 
 public class GroupHelper {
 
-    private static final List<String> OBJECT_CLASSES_WITH_MANDATORY_MEMB_ATTR =
-            Arrays.asList("groupOfNames", "groupOfUniqueNames");
+    private static final List<String> OBJECT_CLASSES_WITH_MANDATORY_MEMB_ATTR = Arrays.asList("groupOfNames",
+            "groupOfUniqueNames");
 
     private static final Log LOG = Log.getLog(GroupHelper.class);
 
@@ -60,7 +60,8 @@ public class GroupHelper {
     }
 
     /**
-     * Returns the attribute which POSIX group references its members. The members of a POSIX groups are held in the
+     * Returns the attribute which POSIX group references its members. The members
+     * of a POSIX groups are held in the
      * <code>memberUid</code> attributes, and the values of this attributes are the
      * <code>uid</code> attributes of the group members. So this method returns
      * <code>"uid"</code>.
@@ -131,6 +132,9 @@ public class GroupHelper {
 
     public Set<GroupMembership> getPosixGroupMemberships(Collection<String> posixRefAttrs) {
         LOG.ok("Retrieving POSIX group memberships for ", posixRefAttrs);
+        if (posixRefAttrs == null) {
+            return new HashSet<>();
+        }
         ToGroupMembershipHandler handler = new ToGroupMembershipHandler();
         for (String posixRefAttr : posixRefAttrs) {
             String filter = createAttributeFilter("memberUid", Collections.singletonList(posixRefAttr));
@@ -170,8 +174,8 @@ public class GroupHelper {
             return;
         }
 
-        if (Arrays.stream(conn.getConfiguration().getGroupObjectClasses()).
-                noneMatch(oc -> OBJECT_CLASSES_WITH_MANDATORY_MEMB_ATTR.stream().anyMatch(oc::equalsIgnoreCase))) {
+        if (Arrays.stream(conn.getConfiguration().getGroupObjectClasses())
+                .noneMatch(oc -> OBJECT_CLASSES_WITH_MANDATORY_MEMB_ATTR.stream().anyMatch(oc::equalsIgnoreCase))) {
 
             return;
         }
